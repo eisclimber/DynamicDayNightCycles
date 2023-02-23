@@ -1,4 +1,4 @@
-# DynamicDayNightCycles
+# Dynamic Day Night Cycles
 
 A Godot 4.x Plugin for Dynamic Day Night Cycles.
 
