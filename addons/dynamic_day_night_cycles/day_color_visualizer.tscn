@@ -96,6 +96,7 @@ theme_override_constants/separation = 16
 
 [node name="DaySpinBox" type="SpinBox" parent="Margin/VBoxContainer/ControlsArea/Margin/HBox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 prefix = "Day"
 
