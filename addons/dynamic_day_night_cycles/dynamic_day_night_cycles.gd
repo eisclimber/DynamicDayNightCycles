@@ -3,8 +3,8 @@ extends EditorPlugin
 
 const NODE_NAME = "CustomEOT"
 const INHERITANCE = "Node"
-const NODE_SCRIPT = preload("CustomEOT.gd")
-const NODE_ICON = preload("res://addons/accurate_daytime_cycles/Icon.svg")
+const NODE_SCRIPT = preload("res://addons/dynamic_day_night_cycles/custom_eot.gd")
+const NODE_ICON = preload("res://addons/dynamic_day_night_cycles/node_icon.svg")
 
 
 func _enter_tree() -> void:

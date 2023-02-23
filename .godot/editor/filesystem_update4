@@ -1,9 +1,2 @@
-res://addons/accurate_daytime_cycles/EOTPlot.tscn
-res://addons/accurate_daytime_cycles/CustomEOT.gd
-res://addons/accurate_daytime_cycles/DayColorVisualizer.tscn
-res://addons/accurate_daytime_cycles/EOTPlot.gd
-res://addons/accurate_daytime_cycles/day_color_visualizer.tscn
-res://addons/accurate_daytime_cycles/day_color_visualizer.gd
 res://addons/dynamic_day_night_cycles/day_color_visualizer.tscn
-res://addons/dynamic_day_night_cycles/plugin.cfg
-res://addons/dynamic_day_night_cycles/eot_plot.tscn
+res://addons/dynamic_day_night_cycles/daytime_shader.tres

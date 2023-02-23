@@ -8,12 +8,12 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfq4g"]
 shader = ExtResource("4_hkyq3")
+shader_parameter/twilight_duration_factor = 1.0
 shader_parameter/current_time = 0.0
 shader_parameter/sunrise_time = 0.1
 shader_parameter/sunset_time = 0.9
 shader_parameter/twilight_duration = 0.2
 shader_parameter/shader_opacity = 1.0
-shader_parameter/twilight_duration_factor = 1.0
 shader_parameter/day_time_colors = ExtResource("3_e1y4t")
 
 [node name="DayColorVisualizer" type="Control"]

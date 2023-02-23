@@ -16,4 +16,4 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/accurate_daytime_cycles/plugin.cfg")
+enabled=PackedStringArray("res://addons/dynamic_day_night_cycles/plugin.cfg")

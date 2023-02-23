@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://eaek08ow8aci"
-path="res://.godot/imported/icon.svg-9723a6f0c88b7cb537779c54445e891b.ctex"
+path="res://.godot/imported/node_icon.svg-b948dde992c407dacbef58576402dd4c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/dynamic_day_night_cycles/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-9723a6f0c88b7cb537779c54445e891b.ctex"]
+source_file="res://addons/dynamic_day_night_cycles/node_icon.svg"
+dest_files=["res://.godot/imported/node_icon.svg-b948dde992c407dacbef58576402dd4c.ctex"]
 
 [params]
 

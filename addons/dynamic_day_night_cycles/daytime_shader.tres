@@ -3,6 +3,10 @@
 [resource]
 code = "shader_type canvas_item;
 
+uniform sampler2D day_time_colors : hint_default_white;
+
+uniform float twilight_duration_factor = 1.0f;
+
 uniform float current_time : hint_range(0, 1) = 0.0f;
 
 uniform float sunrise_time : hint_range(0, 1) = 0.1f;
@@ -11,10 +15,6 @@ uniform float sunset_time : hint_range(0, 1) = 0.9f;
 uniform float twilight_duration : hint_range(0, 1) = 0.2f;
 
 uniform float shader_opacity : hint_range(0, 1) = 1.0f;
-
-uniform float twilight_duration_factor = 1.0f;
-
-uniform sampler2D day_time_colors : hint_default_white;
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
