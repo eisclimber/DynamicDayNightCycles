@@ -22,7 +22,6 @@ const MINUTES_PER_HOUR := 60.0
 		if daytime_shader:
 			daytime_shader.set_shader_param("twilight_duration_factor", value)
 
-
 var eot_values : Dictionary
 var daytime_shader : ShaderMaterial
 var play_day_shader : bool

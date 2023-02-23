@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cyjgfgqtkbf5e"
-path.s3tc="res://.godot/imported/SunColors.png-fa29dd97c34176e9f08c43f0fe7c2a81.s3tc.ctex"
+path.s3tc="res://.godot/imported/sun_colors.png-e50d599ab0e96f350674b9dd0af7f0c8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/accurate_daytime_cycles/SunColors.png"
-dest_files=["res://.godot/imported/SunColors.png-fa29dd97c34176e9f08c43f0fe7c2a81.s3tc.ctex"]
+source_file="res://addons/dynamic_day_night_cycles/sun_colors.png"
+dest_files=["res://.godot/imported/sun_colors.png-e50d599ab0e96f350674b9dd0af7f0c8.s3tc.ctex"]
 
 [params]
 

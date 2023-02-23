@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk0ej6rvio1f7"
-path="res://.godot/imported/ExampleIcon.svg-b229238e2fa0b2f93d7e1ce1fd63836e.ctex"
+uid="uid://eaek08ow8aci"
+path="res://.godot/imported/icon.svg-9723a6f0c88b7cb537779c54445e891b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/accurate_daytime_cycles/ExampleIcon.svg"
-dest_files=["res://.godot/imported/ExampleIcon.svg-b229238e2fa0b2f93d7e1ce1fd63836e.ctex"]
+source_file="res://addons/dynamic_day_night_cycles/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-9723a6f0c88b7cb537779c54445e891b.ctex"]
 
 [params]
 

@@ -1,20 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://vknjegym43mr"]
+[gd_scene load_steps=7 format=3 uid="uid://crc8388qkvxd5"]
 
-[ext_resource type="Script" path="res://addons/accurate_daytime_cycles/DayColorVisualizer.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://dk0ej6rvio1f7" path="res://addons/accurate_daytime_cycles/ExampleIcon.svg" id="2_s3fvy"]
-[ext_resource type="Shader" uid="uid://cxcq8wq1mysia" path="res://addons/accurate_daytime_cycles/DaytimeShader.tres" id="4_y2uag"]
-[ext_resource type="Script" path="res://addons/accurate_daytime_cycles/CustomEOT.gd" id="5"]
-[ext_resource type="Texture2D" uid="uid://cyjgfgqtkbf5e" path="res://addons/accurate_daytime_cycles/SunColors.png" id="6"]
+[ext_resource type="Script" path="res://addons/dynamic_day_night_cycles/day_color_visualizer.gd" id="1_ml30r"]
+[ext_resource type="Texture2D" uid="uid://dk0ej6rvio1f7" path="res://addons/dynamic_day_night_cycles/example_icon.svg" id="2_h7w8f"]
+[ext_resource type="Texture2D" uid="uid://cyjgfgqtkbf5e" path="res://addons/dynamic_day_night_cycles/sun_colors.png" id="3_e1y4t"]
+[ext_resource type="Shader" uid="uid://cxcq8wq1mysia" path="res://addons/dynamic_day_night_cycles/daytime_shader.tres" id="4_hkyq3"]
+[ext_resource type="Script" path="res://addons/dynamic_day_night_cycles/custom_eot.gd" id="5_layre"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfq4g"]
-shader = ExtResource("4_y2uag")
+shader = ExtResource("4_hkyq3")
 shader_parameter/current_time = 0.0
 shader_parameter/sunrise_time = 0.1
 shader_parameter/sunset_time = 0.9
 shader_parameter/twilight_duration = 0.2
 shader_parameter/shader_opacity = 1.0
 shader_parameter/twilight_duration_factor = 1.0
-shader_parameter/day_time_colors = ExtResource("6")
+shader_parameter/day_time_colors = ExtResource("3_e1y4t")
 
 [node name="DayColorVisualizer" type="Control"]
 layout_mode = 3
@@ -23,9 +23,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1")
-background_texture = ExtResource("2_s3fvy")
-daytime_color_texture = ExtResource("6")
+script = ExtResource("1_ml30r")
+background_texture = ExtResource("2_h7w8f")
+daytime_color_texture = ExtResource("3_e1y4t")
+twilight_duration_factor = null
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 0
@@ -63,7 +64,7 @@ anchor_bottom = 1.0
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource("2_s3fvy")
+texture = ExtResource("2_h7w8f")
 stretch_mode = 5
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Margin/VBoxContainer/DisplayDialog"]
@@ -209,7 +210,7 @@ value = 1.0
 
 [node name="CustomEOT" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("5")
+script = ExtResource("5_layre")
 
 [connection signal="value_changed" from="Margin/VBoxContainer/ControlsArea/Margin/HBox/DaySpinBox" to="." method="_on_DaySpinBox_value_changed"]
 [connection signal="value_changed" from="Margin/VBoxContainer/ControlsArea/Margin/HBox/SliderHBox/DayTimeSlider" to="." method="_on_DayTimeSlider_value_changed"]

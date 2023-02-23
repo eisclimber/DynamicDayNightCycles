@@ -1,10 +1,4 @@
-@tool
 extends Control
-class_name EOTPlot
-
-const DEFAULT_NUM_TICKS = 15
-const GRAPH_BORDER_THICKNESS = 3
-const VERTICAL_PLOT_MARGIN = 0.05
 
 enum PLOT_OPTION {
 	EOT,
@@ -14,11 +8,23 @@ enum PLOT_OPTION {
 	Declination
 }
 
+const DEFAULT_NUM_TICKS := 15
+const GRAPH_BORDER_THICKNESS := 3
+const VERTICAL_PLOT_MARGIN := 0.05
+const TIKS_NUM_DECIMALS := 2
+
 @export var plot_option := PLOT_OPTION.EOT :
 	set(value):
 		plot_option = value
 		if plots_anchor:
-			plot_selected_eot_values()
+			_plot_selected_eot_values()
+
+var current_plot_rect_pos : Vector2
+var current_plot_rect_size : Vector2
+
+var zero_plot_line : Line2D
+
+var full_eot_infos : Array
 
 @onready var plots_anchor = %PlotsBackground
 @onready var plot_outline = %PlotOutline
@@ -28,13 +34,6 @@ enum PLOT_OPTION {
 @onready var x_label = %XLabel
 @onready var y_label = %YLabel
 @onready var plot_option_dropdown = %PlotOptionDropdown
-
-var current_plot_rect_pos : Vector2
-var current_plot_rect_size : Vector2
-
-var zero_plot_line : Line2D
-
-var full_eot_infos : Array
 
 
 func _ready() -> void:
@@ -46,10 +45,10 @@ func _ready() -> void:
 	# Wait till everything has settled before 1st draw
 	await get_tree().process_frame
 	
-	plot_selected_eot_values()
+	_plot_selected_eot_values()
 
 
-func plot_selected_eot_values() -> void:
+func _plot_selected_eot_values() -> void:
 	var values = []
 	var plotted_y_label = "EOT\n[planet min]"
 	
@@ -76,10 +75,10 @@ func plot_selected_eot_values() -> void:
 		PLOT_OPTION.Declination:
 			plotted_y_label = "Declination\n[deg]"
 	
-	plot_vectors(values, 3, true, true, false, "Days since Jan 1", plotted_y_label)
+	_plot_vectors(values, 3, true, true, false, "Days since Jan 1", plotted_y_label)
 
 
-func plot_vectors(_vectors : PackedVector2Array, _line_thickness : float = 3, \
+func _plot_vectors(_vectors : PackedVector2Array, _line_thickness : float = 3, \
 		_clear_plots : bool = true, _round_x_ticks : bool = false, _round_y_ticks : bool = false, \
 		_x_label_text : String = "", _y_label_text : String = "") -> void:
 	
@@ -90,10 +89,11 @@ func plot_vectors(_vectors : PackedVector2Array, _line_thickness : float = 3, \
 		x_values.append(_vectors[i].x)
 		y_values.append(_vectors[i].y)
 	
-	plot_values(x_values, y_values, _line_thickness, _clear_plots, _round_x_ticks, _round_y_ticks, _x_label_text, _y_label_text)
+	_plot_values(x_values, y_values, _line_thickness, _clear_plots, _round_x_ticks, \
+			_round_y_ticks, _x_label_text, _y_label_text)
 
 
-func plot_values(_x_values : Array, _y_values : Array, _line_thickness : float = 3, \
+func _plot_values(_x_values : Array, _y_values : Array, _line_thickness : float = 3, \
 		_clear_plots : bool = true, _round_x_ticks : bool = false, _round_y_ticks : bool = false, \
 		_x_label_text : String = "", _y_label_text : String = "", _ignore_nans : bool = true) -> void:
 	
@@ -119,8 +119,8 @@ func plot_values(_x_values : Array, _y_values : Array, _line_thickness : float =
 		printerr("Could not plot because either the min or max y-values are NAN.")
 		return
 	
-	add_ticks_to_anchor(x_ticks_anchor, true, x_min, x_max, DEFAULT_NUM_TICKS, _round_x_ticks)
-	add_ticks_to_anchor(y_ticks_anchor, false, y_min, y_max, DEFAULT_NUM_TICKS, _round_y_ticks)
+	_add_ticks_to_anchor(x_ticks_anchor, true, x_min, x_max, DEFAULT_NUM_TICKS, _round_x_ticks)
+	_add_ticks_to_anchor(y_ticks_anchor, false, y_min, y_max, DEFAULT_NUM_TICKS, _round_y_ticks)
 	
 	x_label.text = _x_label_text
 	y_label.text = _y_label_text
@@ -159,10 +159,10 @@ func plot_values(_x_values : Array, _y_values : Array, _line_thickness : float =
 		
 		plot_line.add_point(Vector2(x_pos, y_pos))
 	
-	draw_graph_border(GRAPH_BORDER_THICKNESS)
+	_draw_graph_border(GRAPH_BORDER_THICKNESS)
 
 
-func add_ticks_to_anchor(_ticks_anchor : Control, _horizontal_ticks : bool, _min_value : float, \
+func _add_ticks_to_anchor(_ticks_anchor : Control, _horizontal_ticks : bool, _min_value : float, \
 		_max_value : float, _num_ticks : int, _round_ticks : bool = false) -> void:
 	
 	assert(_ticks_anchor != null)
@@ -170,7 +170,7 @@ func add_ticks_to_anchor(_ticks_anchor : Control, _horizontal_ticks : bool, _min
 	for child in _ticks_anchor.get_children():
 		child.queue_free()
 	
-	var tick_values = get_tick_values(_num_ticks, _min_value, _max_value, _round_ticks)
+	var tick_values = _generate_tick_values(_num_ticks, _min_value, _max_value, _round_ticks)
 	
 	if !_horizontal_ticks:
 		# Invert to draw positive y towards the top
@@ -188,7 +188,7 @@ func add_ticks_to_anchor(_ticks_anchor : Control, _horizontal_ticks : bool, _min
 		if _round_ticks:
 			tick_label.text = str(tick_values[i])
 		else:
-			tick_label.text = str(tick_values[i]).pad_decimals(2)
+			tick_label.text = str(tick_values[i]).pad_decimals(TIKS_NUM_DECIMALS)
 		
 		if i < tick_values.size() - 1:
 			var spacer = Control.new()
@@ -200,7 +200,8 @@ func add_ticks_to_anchor(_ticks_anchor : Control, _horizontal_ticks : bool, _min
 				spacer.size_flags_vertical = SIZE_EXPAND_FILL
 
 
-func get_tick_values(_num_ticks : int, _min_value : float, _max_value : float, _round_ticks : bool = false) -> PackedFloat32Array:
+func _generate_tick_values(_num_ticks : int, _min_value : float, _max_value : float, \
+		_round_ticks : bool = false) -> PackedFloat32Array:
 	
 	assert(_max_value > _min_value)
 	
@@ -224,7 +225,7 @@ func get_tick_values(_num_ticks : int, _min_value : float, _max_value : float, _
 func _find_draw_x_pos(_value : float, _val_min : float, _val_max : float, _draw_min : float, \
 		_draw_max : float) -> float:
 	
-	return transpose_pct_range(_value, _val_min, _val_max, _draw_min, _draw_max) + _draw_min
+	return _transpose_pct_range(_value, _val_min, _val_max, _draw_min, _draw_max) + _draw_min
 
 
 func _find_draw_y_pos(_value : float, _val_min : float, _val_max : float, _draw_min : float, \
@@ -234,10 +235,10 @@ func _find_draw_y_pos(_value : float, _val_min : float, _val_max : float, _draw_
 		return 0.0
 	
 	# Subtract from _draw_max as we want to draw towards negative y
-	return _draw_max - transpose_pct_range(_value, _val_min, _val_max, _draw_min, _draw_max) + _draw_min
+	return _draw_max - _transpose_pct_range(_value, _val_min, _val_max, _draw_min, _draw_max) + _draw_min
 
 
-func transpose_pct_range(_value : float, _from_min : float, _from_max : float, _to_min : float, \
+func _transpose_pct_range(_value : float, _from_min : float, _from_max : float, _to_min : float, \
 		_to_max : float) -> float:
 	
 	assert(_value <= _from_max)
@@ -251,7 +252,7 @@ func transpose_pct_range(_value : float, _from_min : float, _from_max : float, _
 	return to_range * from_pct + _to_min
 
 
-func draw_graph_border(_line_thickness : float) -> void:
+func _draw_graph_border(_line_thickness : float) -> void:
 	if !plot_outline:
 		return
 	

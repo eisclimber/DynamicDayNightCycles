@@ -72,29 +72,52 @@ func get_full_info_about_day(_day : float) -> Dictionary:
 	"""
 	var day = fposmod(_day + year_start_day_offset, days_per_year)
 	
+#	var year_pct = fposmod(day, days_per_year) / days_per_year
+#
+#	var real_world_eot_value = calculate_eot(day)
+#	var eot_pct =  HALF_DAY_PCT + get_real_world_eot_to_pct(real_world_eot_value)
+#	var eot_value = eot_pct * -(_calculate_half_day_minutes())
+#
+#	var declination = calculate_declination(day)
+#
+#	var real_world_solar_noon = _calculate_solar_noon_time(real_world_eot_value, declination)
+#	var solar_noon_pct = HALF_DAY_PCT + get_real_world_eot_to_pct(real_world_solar_noon)
+#	var solar_noon = get_pct_to_planet_minutes(solar_noon_pct)
+#
+#	var real_world_sunrise = _calculate_sunrise_or_set_time(real_world_eot_value, declination, false)
+#	var sunrise_pct = get_real_world_eot_to_pct(real_world_sunrise) / DEFAULT_SECONDS_PER_DAY
+#	var sunrise = get_pct_to_planet_minutes(sunrise_pct)
+#
+#	var real_world_sunset = _calculate_sunrise_or_set_time(real_world_eot_value, declination, true)
+#	var sunset_pct = get_real_world_eot_to_pct(real_world_sunset)
+#	var sunset = get_pct_to_planet_minutes(sunset_pct)
+#
+#	var real_world_twilight_duration = _calculate_twilight_duration(real_world_eot_value, declination)
+#	var twilight_duration_pct = get_real_world_eot_to_pct(real_world_twilight_duration)
+#	var twilight_duration = get_pct_to_planet_minutes(twilight_duration_pct)
 	var year_pct = fposmod(day, days_per_year) / days_per_year
 	
 	var real_world_eot_value = calculate_eot(day)
-	var eot_pct =  HALF_DAY_PCT + get_real_world_eot_to_pct(real_world_eot_value)
-	var eot_value = eot_pct * -(_calculate_half_day_minutes())
+	var eot_pct =  0.5 + real_world_eot_value * 60 / DEFAULT_SECONDS_PER_DAY
+	var eot_value = eot_pct * day_duration / 60  - _calculate_half_day_minutes()
 	
 	var declination = calculate_declination(day)
 	
 	var real_world_solar_noon = _calculate_solar_noon_time(real_world_eot_value, declination)
-	var solar_noon_pct = HALF_DAY_PCT + get_real_world_eot_to_pct(real_world_solar_noon)
-	var solar_noon = get_pct_to_planet_minutes(solar_noon_pct)
+	var solar_noon_pct = 0.5 + real_world_solar_noon / DEFAULT_SECONDS_PER_DAY
+	var solar_noon = solar_noon_pct * day_duration / 60
 	
 	var real_world_sunrise = _calculate_sunrise_or_set_time(real_world_eot_value, declination, false)
-	var sunrise_pct = get_real_world_eot_to_pct(real_world_sunrise) / DEFAULT_SECONDS_PER_DAY
-	var sunrise = get_pct_to_planet_minutes(sunrise_pct)
+	var sunrise_pct = (60 * real_world_sunrise) / DEFAULT_SECONDS_PER_DAY
+	var sunrise = sunrise_pct * day_duration / 60
 	
 	var real_world_sunset = _calculate_sunrise_or_set_time(real_world_eot_value, declination, true)
-	var sunset_pct = get_real_world_eot_to_pct(real_world_sunset)
-	var sunset = get_pct_to_planet_minutes(sunset_pct)
+	var sunset_pct = (60 * real_world_sunset) / DEFAULT_SECONDS_PER_DAY
+	var sunset = sunset_pct * day_duration / 60
 	
 	var real_world_twilight_duration = _calculate_twilight_duration(real_world_eot_value, declination)
-	var twilight_duration_pct = get_real_world_eot_to_pct(real_world_twilight_duration)
-	var twilight_duration = get_pct_to_planet_minutes(twilight_duration_pct)
+	var twilight_duration_pct = (60 * real_world_twilight_duration) / DEFAULT_SECONDS_PER_DAY
+	var twilight_duration = twilight_duration_pct * day_duration / 60
 	
 	return {
 		"day" : day, # The day of the eot data (actual day including day offset)
@@ -172,7 +195,7 @@ func _calculate_eot_or_declination(_day : float, _return_eot : bool, _prevent_le
 	
 	returns the eot in minutes or the declination in degrees for the given day and specified planets orbit.
 	"""
-	# Using the apporixmate implementation of: The Latitude and Longitude of the Sun by David Williams
+	# Based an approximate implementation from "The Latitude and Longitude of the Sun" by David Williams
 	var d = _day
 	
 	if (_prevent_leap_year_offset):
@@ -425,21 +448,3 @@ func get_planet_time_scale() -> float:
 	returns the planet's time scale
 	"""
 	return day_duration / DEFAULT_SECONDS_PER_DAY
-
-
-func get_pct_to_planet_minutes(_pct : float) -> float:
-	"""
-	Calculates and returns the day pct to planet minutes
-	
-	returns the planet minutes for the given percentage
-	"""
-	return _pct * (day_duration / SECONDS_PER_MINUTE)
-
-
-func get_real_world_eot_to_pct(_world_eot : float) -> float:
-	"""
-	Calculates and returns an eot value to pct based on real world days
-	
-	returns the real-world percentage for a given day
-	"""
-	return SECONDS_PER_MINUTE * _world_eot / DEFAULT_SECONDS_PER_DAY

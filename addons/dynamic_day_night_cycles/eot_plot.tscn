@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dr26jgucnwtmv"]
+[gd_scene load_steps=3 format=3 uid="uid://cq7djo4v5v31h"]
 
-[ext_resource type="Script" path="res://addons/accurate_daytime_cycles/EOTPlot.gd" id="1_ser5p"]
-[ext_resource type="Script" path="res://addons/accurate_daytime_cycles/CustomEOT.gd" id="2_o46p2"]
+[ext_resource type="Script" path="res://addons/dynamic_day_night_cycles/eot_plot.gd" id="1_ser5p"]
+[ext_resource type="Script" path="res://addons/dynamic_day_night_cycles/custom_eot.gd" id="2_o46p2"]
 
 [node name="EOTPlot" type="Control"]
 layout_mode = 3
@@ -160,7 +160,6 @@ size_flags_vertical = 3
 [node name="PlotOptionDropdown" type="OptionButton" parent="Margin/GridContainer/Spacer/Center"]
 unique_name_in_owner = true
 layout_mode = 2
-selected = 0
 
 [node name="XControl" type="VBoxContainer" parent="Margin/GridContainer"]
 layout_mode = 2
