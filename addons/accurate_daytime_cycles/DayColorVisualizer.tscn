@@ -1,0 +1,218 @@
+[gd_scene load_steps=7 format=3 uid="uid://vknjegym43mr"]
+
+[ext_resource type="Script" path="res://addons/accurate_daytime_cycles/DayColorVisualizer.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dk0ej6rvio1f7" path="res://addons/accurate_daytime_cycles/ExampleIcon.svg" id="2_s3fvy"]
+[ext_resource type="Shader" uid="uid://cxcq8wq1mysia" path="res://addons/accurate_daytime_cycles/DaytimeShader.tres" id="4_y2uag"]
+[ext_resource type="Script" path="res://addons/accurate_daytime_cycles/CustomEOT.gd" id="5"]
+[ext_resource type="Texture2D" uid="uid://cyjgfgqtkbf5e" path="res://addons/accurate_daytime_cycles/SunColors.png" id="6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pfq4g"]
+shader = ExtResource("4_y2uag")
+shader_parameter/current_time = 0.0
+shader_parameter/sunrise_time = 0.1
+shader_parameter/sunset_time = 0.9
+shader_parameter/twilight_duration = 0.2
+shader_parameter/shader_opacity = 1.0
+shader_parameter/twilight_duration_factor = 1.0
+shader_parameter/day_time_colors = ExtResource("6")
+
+[node name="DayColorVisualizer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+background_texture = ExtResource("2_s3fvy")
+daytime_color_texture = ExtResource("6")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="DisplayDialog" type="Control" parent="Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BackgroundColor" type="ColorRect" parent="Margin/VBoxContainer/DisplayDialog"]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BackgroundTextureRect" type="TextureRect" parent="Margin/VBoxContainer/DisplayDialog"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_s3fvy")
+stretch_mode = 5
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Margin/VBoxContainer/DisplayDialog"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+split_offset = 50
+
+[node name="CurrentDayShaderArea" type="ColorRect" parent="Margin/VBoxContainer/DisplayDialog/HSplitContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_pfq4g")
+layout_mode = 2
+
+[node name="NoShaderArea" type="Control" parent="Margin/VBoxContainer/DisplayDialog/HSplitContainer"]
+layout_mode = 2
+
+[node name="ControlsArea" type="Control" parent="Margin/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Margin/VBoxContainer/ControlsArea"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBoxContainer/ControlsArea/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="DaySpinBox" type="SpinBox" parent="Margin/VBoxContainer/ControlsArea/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+prefix = "Day"
+
+[node name="SliderHBox" type="HBoxContainer" parent="Margin/VBoxContainer/ControlsArea/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="MorningLabel" type="Label" parent="Margin/VBoxContainer/ControlsArea/Margin/HBox/SliderHBox"]
+layout_mode = 2
+text = "0:00"
+
+[node name="DayTimeSlider" type="HSlider" parent="Margin/VBoxContainer/ControlsArea/Margin/HBox/SliderHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 0.01
+
+[node name="CurrentTimeLabel" type="Label" parent="Margin/VBoxContainer/ControlsArea/Margin/HBox/SliderHBox/DayTimeSlider"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -13.0
+offset_right = 16.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "0:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NightLabel" type="Label" parent="Margin/VBoxContainer/ControlsArea/Margin/HBox/SliderHBox"]
+layout_mode = 2
+text = "24:00"
+
+[node name="PlaybackArea" type="Control" parent="Margin/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/VBoxContainer/PlaybackArea"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="DaysPerYearLabel" type="Label" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+layout_mode = 2
+text = "Days Per Year:"
+
+[node name="DaysPerYearSpinBox" type="SpinBox" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 10000.0
+step = 0.01
+value = 365.0
+
+[node name="PlaybackLabel" type="Label" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+layout_mode = 2
+text = "Auto Playback:"
+
+[node name="AutoPlayCheckBox" type="CheckButton" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+layout_mode = 2
+
+[node name="SpeedLabel" type="Label" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+layout_mode = 2
+text = "Playback Speed:"
+
+[node name="SpeedSpinBox" type="SpinBox" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+value = 10.0
+
+[node name="SecondsLabel" type="Label" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+layout_mode = 2
+text = "s"
+
+[node name="Spacer2" type="Control" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+layout_mode = 2
+
+[node name="TwilightFactorLabel2" type="Label" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+layout_mode = 2
+text = "Twilight Duration Factor:"
+
+[node name="TwilightFactorSpinBox" type="SpinBox" parent="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+step = 0.01
+value = 1.0
+
+[node name="CustomEOT" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5")
+
+[connection signal="value_changed" from="Margin/VBoxContainer/ControlsArea/Margin/HBox/DaySpinBox" to="." method="_on_DaySpinBox_value_changed"]
+[connection signal="value_changed" from="Margin/VBoxContainer/ControlsArea/Margin/HBox/SliderHBox/DayTimeSlider" to="." method="_on_DayTimeSlider_value_changed"]
+[connection signal="toggled" from="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox/AutoPlayCheckBox" to="." method="_on_AutoPlayCheckBox_toggled"]
+[connection signal="value_changed" from="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox/SpeedSpinBox" to="." method="_on_SpeedSpinBox_value_changed"]
+[connection signal="value_changed" from="Margin/VBoxContainer/PlaybackArea/MarginContainer/HBox/TwilightFactorSpinBox" to="." method="_on_TwilightFactorSpinBox_value_changed"]

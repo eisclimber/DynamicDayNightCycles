@@ -1,0 +1,264 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr26jgucnwtmv"]
+
+[ext_resource type="Script" path="res://addons/accurate_daytime_cycles/EOTPlot.gd" id="1_ser5p"]
+[ext_resource type="Script" path="res://addons/accurate_daytime_cycles/CustomEOT.gd" id="2_o46p2"]
+
+[node name="EOTPlot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ser5p")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="Margin"]
+layout_mode = 2
+columns = 2
+
+[node name="YControl" type="HBoxContainer" parent="Margin/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="YLabel" type="Label" parent="Margin/GridContainer/YControl"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "YLabel"
+
+[node name="Margin" type="MarginContainer" parent="Margin/GridContainer/YControl"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_right = 4
+
+[node name="YTicks" type="VBoxContainer" parent="Margin/GridContainer/YControl/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+text = "4"
+
+[node name="Control" type="Control" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+text = "3"
+
+[node name="Control2" type="Control" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label3" type="Label" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+text = "2"
+
+[node name="Control3" type="Control" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label4" type="Label" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+text = "1"
+
+[node name="Control4" type="Control" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label5" type="Label" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+text = "0"
+
+[node name="Control5" type="Control" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label6" type="Label" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+text = "-1"
+
+[node name="Control6" type="Control" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label7" type="Label" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+text = "-2"
+
+[node name="Control7" type="Control" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label8" type="Label" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+text = "-3"
+
+[node name="Control8" type="Control" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label9" type="Label" parent="Margin/GridContainer/YControl/Margin/YTicks"]
+layout_mode = 2
+text = "-4"
+
+[node name="Margin" type="MarginContainer" parent="Margin/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PlotsBackground" type="ColorRect" parent="Margin/GridContainer/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.168627, 0.168627, 0.168627, 1)
+
+[node name="PlotOutline" type="Line2D" parent="Margin/GridContainer/Margin"]
+unique_name_in_owner = true
+
+[node name="Spacer" type="Control" parent="Margin/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Center" type="CenterContainer" parent="Margin/GridContainer/Spacer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlotOptionDropdown" type="OptionButton" parent="Margin/GridContainer/Spacer/Center"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+
+[node name="XControl" type="VBoxContainer" parent="Margin/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin" type="MarginContainer" parent="Margin/GridContainer/XControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="XTicks" type="HBoxContainer" parent="Margin/GridContainer/XControl/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+text = "0"
+
+[node name="Control" type="Control" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+text = "1"
+
+[node name="Control2" type="Control" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label3" type="Label" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+text = "2"
+
+[node name="Control3" type="Control" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label4" type="Label" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+text = "3"
+
+[node name="Control4" type="Control" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label5" type="Label" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+text = "4"
+
+[node name="Control5" type="Control" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label6" type="Label" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+text = "5"
+
+[node name="Control6" type="Control" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label7" type="Label" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+text = "6"
+
+[node name="Control7" type="Control" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label8" type="Label" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+text = "7"
+
+[node name="Control8" type="Control" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label9" type="Label" parent="Margin/GridContainer/XControl/Margin/XTicks"]
+layout_mode = 2
+text = "8"
+
+[node name="XLabel" type="Label" parent="Margin/GridContainer/XControl"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "XLabel"
+horizontal_alignment = 1
+
+[node name="CustomEOT" type="Node" parent="."]
+script = ExtResource("2_o46p2")
+
+[connection signal="item_selected" from="Margin/GridContainer/Spacer/Center/PlotOptionDropdown" to="." method="_on_PlotOptionDropdown_item_selected"]
